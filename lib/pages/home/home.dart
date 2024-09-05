@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    int currentTabIndex = 0;
     final highlightColor = Theme.of(context).colorScheme.primaryContainer;
     final months = [
       'January',
@@ -40,16 +39,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       'December',
     ];
 
-    // TODO: improve this too long code
-    // TODO: consider moving to a standalone variable to store
-    // tab controller instead of using the DefaulTabController component
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 75,
         title: Container(
-          margin: EdgeInsets.only(top: 25),
+          margin: const EdgeInsets.only(top: 25),
           child: const Text("Good morning !",
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              )),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(75),
@@ -86,7 +85,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   const BorderRadius.all(Radius.circular(5)),
                             ),
                             indicatorPadding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 7),
+                              vertical: 5,
+                              horizontal: 7,
+                            ),
                             // labelColor: Colors.white,
                             // unselectedLabelColor: Colors.white,
                             tabs: months.map((m) {
@@ -97,9 +98,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                       children: [
                                     Text(m,
                                         style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w200,
-                                            overflow: TextOverflow.ellipsis))
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w200,
+                                          overflow: TextOverflow.ellipsis,
+                                        ))
                                   ]));
                             }).toList()),
                       ),
@@ -131,8 +133,5 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: const Icon(Icons.add),
       ),
     );
-    // return Scaffold(
-    //   body: TabNavigation(),
-    // );
   }
 }
