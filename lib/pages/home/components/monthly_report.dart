@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:makeitcount/pages/home/components/pie_chart.dart';
+import 'package:makeitcount/pages/home/components/expenses_pie_chart.dart';
 
 class MonthlyReport extends StatefulWidget {
   const MonthlyReport({super.key});
@@ -16,17 +16,25 @@ class _MonthlyReportState extends State<MonthlyReport> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-            margin: EdgeInsets.only(top: 15, bottom: 10),
-            child: Text("Monthly report",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))),
+          margin: const EdgeInsets.only(top: 15, bottom: 10),
+          child: const Text("Monthly report",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
         const Card(
           child: Padding(
             padding: EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 15.0, bottom: 15.0),
+              left: 15.0,
+              right: 15.0,
+              top: 15.0,
+              bottom: 15.0,
+            ),
             child: SizedBox(
                 width: double.infinity,
                 height: 180,
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

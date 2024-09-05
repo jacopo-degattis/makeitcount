@@ -25,32 +25,18 @@ class ExpensesPieChart extends StatelessWidget {
       startAngle: 0.0,
       progressColor: progressColor,
       circularStrokeCap: CircularStrokeCap.round,
-      header:
-          Container(margin: EdgeInsets.only(bottom: 15.0), child: Text(header)),
+      backgroundColor: progressColor.withOpacity(0.4),
+      header: Container(
+        margin: const EdgeInsets.only(bottom: 15.0),
+        child: Text(header),
+      ),
       center: Text("${percent * 100}%"),
       footer: Container(
-        margin: EdgeInsets.only(top: 15.0),
+        margin: const EdgeInsets.only(top: 15.0),
         child: Text(
-          "\$ ${footer}",
+          "\$ $footer",
         ),
       ),
-      // widgetIndicator: Center(
-      //   child: Container(
-      //     height: 20,
-      //     width: 20,
-      //     decoration: BoxDecoration(
-      //       color: Colors.yellow,
-      //       borderRadius: BorderRadius.circular(50),
-      //     ),
-      //     padding: const EdgeInsets.all(5),
-      //     child: Container(
-      //       decoration: BoxDecoration(
-      //         color: Colors.yellow,
-      //         borderRadius: BorderRadius.circular(50),
-      //       ),
-      //     ),
-      //   ),
-      // ),
     );
   }
 }
