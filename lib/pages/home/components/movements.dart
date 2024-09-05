@@ -11,33 +11,52 @@ class Movements extends StatefulWidget {
 class _MovementsState extends State<Movements> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-              margin: EdgeInsets.only(top: 15, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Movements",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  Text(
-                    "See all",
-                    style: TextStyle(decoration: TextDecoration.underline),
-                  )
-                ],
-              )),
-          Container(
-              child: Column(
+    final margin = MediaQuery.of(context).size.height * 0.015;
+
+    return Column(children: [
+      Container(
+          margin: EdgeInsets.only(top: margin, bottom: margin),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SingleMovementCard(),
-              SingleMovementCard(),
-              SingleMovementCard(),
-              SingleMovementCard(),
+              Text(
+                "Movements",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "See all",
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                ),
+              )
             ],
-          ))
-        ]);
+          )),
+      const Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SingleMovementCard(
+            title: "Conad",
+            category: "Grocery",
+            price: 34.39,
+            image: "test",
+          ),
+          SingleMovementCard(
+            title: "Conad",
+            category: "Grocery",
+            price: 34.39,
+            image: "test",
+          ),
+          SingleMovementCard(
+            title: "Conad",
+            category: "Grocery",
+            price: 34.39,
+            image: "test",
+          ),
+        ],
+      )
+    ]);
   }
 }

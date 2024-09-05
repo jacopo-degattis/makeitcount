@@ -11,6 +11,11 @@ class MonthlyReport extends StatefulWidget {
 class _MonthlyReportState extends State<MonthlyReport> {
   @override
   Widget build(BuildContext context) {
+    final graphsSapcing = MediaQuery.of(context).size.width * 0.05;
+    final cardHeight = MediaQuery.of(context).size.height * 0.20;
+    final verticalCardPadding = MediaQuery.of(context).size.height * 0.02;
+    final horizontalCardPadding = MediaQuery.of(context).size.width * 0.05;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -23,40 +28,41 @@ class _MonthlyReportState extends State<MonthlyReport> {
                 fontWeight: FontWeight.bold,
               )),
         ),
-        const Card(
+        Card(
           child: Padding(
-            padding: EdgeInsets.only(
-              left: 15.0,
-              right: 15.0,
-              top: 15.0,
-              bottom: 15.0,
-            ),
+            padding: EdgeInsets.symmetric(
+                horizontal: horizontalCardPadding,
+                vertical: verticalCardPadding),
             child: SizedBox(
                 width: double.infinity,
-                height: 180,
+                height: cardHeight,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       children: [
-                        ExpensesPieChart(
-                            header: "Incomes",
-                            progressColor: Color(0xFF1572A1),
-                            percent: 0.74,
-                            footer: "4,586.89"),
-                        SizedBox(
-                          width: 20.0,
+                        Container(
+                          child: const ExpensesPieChart(
+                              header: "Incomes",
+                              progressColor: Color(0xFF1572A1),
+                              percent: 0.74,
+                              footer: "4,586.89"),
                         ),
-                        ExpensesPieChart(
-                          header: "Expenses",
-                          progressColor: Color(0xFFC84361),
-                          percent: 0.26,
-                          footer: "300.99",
+                        SizedBox(
+                            // width: 20.0,
+                            width: graphsSapcing),
+                        Container(
+                          child: const ExpensesPieChart(
+                            header: "Expenses",
+                            progressColor: Color(0xFFC84361),
+                            percent: 0.26,
+                            footer: "300.99",
+                          ),
                         ),
                       ],
                     ),
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(

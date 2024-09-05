@@ -39,9 +39,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       'December',
     ];
 
+    final toolbarHeight = MediaQuery.of(context).size.height * 0.10;
+
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 75,
+        notificationPredicate: (_) => false,
+        surfaceTintColor: Colors.transparent,
+        scrolledUnderElevation: 0.0,
+        forceMaterialTransparency: true,
+        // toolbarHeight: 75,
+        toolbarHeight: toolbarHeight,
         title: Container(
           margin: const EdgeInsets.only(top: 25),
           child: const Text("Good morning !",
@@ -51,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               )),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(75),
+          preferredSize: Size.fromHeight(toolbarHeight),
           child: Container(
             padding: const EdgeInsets.only(
               left: 15.0,
@@ -63,7 +70,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: SizedBox(
-                  height: 50,
+                  // height: 50,
+                  height: MediaQuery.of(context).size.height * 0.075,
                   child: Row(
                     children: [
                       // TODO: should I keep arrows ?
@@ -120,11 +128,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: Container(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-        child: TabBarView(
-            controller: _tabController,
-            children: List.filled(12, 0)
-                .map((x) => const ExpensesPreview())
-                .toList() as List<Widget>),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: TabBarView(
+              controller: _tabController,
+              children: List.filled(12, 0)
+                  .map((x) => const ExpensesPreview())
+                  .toList() as List<Widget>),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

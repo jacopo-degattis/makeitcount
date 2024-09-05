@@ -17,8 +17,11 @@ class ExpensesPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final radius = MediaQuery.of(context).size.width * 0.15;
+    final spacing = MediaQuery.of(context).size.height * 0.02;
+
     return CircularPercentIndicator(
-      radius: 45.0,
+      radius: radius,
       animation: true,
       lineWidth: 8.0,
       percent: percent,
@@ -26,13 +29,16 @@ class ExpensesPieChart extends StatelessWidget {
       progressColor: progressColor,
       circularStrokeCap: CircularStrokeCap.round,
       backgroundColor: progressColor.withOpacity(0.4),
-      header: Container(
-        margin: const EdgeInsets.only(bottom: 15.0),
-        child: Text(header),
-      ),
-      center: Text("${percent * 100}%"),
+      // header: Container(
+      //   margin: EdgeInsets.only(bottom: spacing),
+      //   child: Text(header),
+      // ),
+      center: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text(header),
+        Text("${percent * 100}%"),
+      ]),
       footer: Container(
-        margin: const EdgeInsets.only(top: 15.0),
+        margin: EdgeInsets.only(top: spacing),
         child: Text(
           "\$ $footer",
         ),
