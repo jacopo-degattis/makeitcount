@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-// Theme created using https://material-foundation.github.io/material-theme-builder/
 class CustomTheme {
   final TextTheme textTheme;
 
