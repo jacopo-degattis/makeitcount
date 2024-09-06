@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/pages/home/components/expenses_preview.dart';
+import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends ConsumerState<HomePage>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -23,6 +27,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final movementsRepo = ref.watch(movementsRepositoryProvider);
+    // I show only the three / four last movements
+    // To see all others you need to use the See all page
+    final movementsPreview = movementsRepo.getMovementsByMonth(9, limit: 3);
+
     final highlightColor = Theme.of(context).colorScheme.primaryContainer;
     final months = [
       'January',
@@ -133,13 +142,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: TabBarView(
               controller: _tabController,
               children: List.filled(12, 0)
-                  .map((x) => const ExpensesPreview())
+                  .map((x) => ExpensesPreview(
+                        movements: movementsPreview,
+                      ))
                   .toList() as List<Widget>),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("Floating btn pressed");
+          setState(() {
+            movementsPreview
+                .add(MovementModel(0, "NEW", 33.33, "TEST", "NONE", 9, 1));
+          });
+          // TODO:
+          // I think I should reverse options.
+          // First I need to check if I correctly inserted the new entry in DB.
+          // If it succeded then I can add it to local state.
+          movementsRepo.addMovement("NEW", "TEST", 33.33);
         },
         child: const Icon(Icons.add),
       ),

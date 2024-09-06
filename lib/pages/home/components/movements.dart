@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/pages/home/components/single_movment_card.dart';
 
 class Movements extends StatefulWidget {
-  const Movements({super.key});
+  final List<MovementModel> movements;
+
+  const Movements({super.key, required this.movements});
 
   @override
   State<Movements> createState() => _MovementsState();
@@ -34,28 +37,35 @@ class _MovementsState extends State<Movements> {
               )
             ],
           )),
-      const Column(
+      Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SingleMovementCard(
-            title: "Conad",
-            category: "Grocery",
-            price: 34.39,
-            image: "test",
-          ),
-          SingleMovementCard(
-            title: "Conad",
-            category: "Grocery",
-            price: 34.39,
-            image: "test",
-          ),
-          SingleMovementCard(
-            title: "Conad",
-            category: "Grocery",
-            price: 34.39,
-            image: "test",
-          ),
-        ],
+        // children: [
+        //   SingleMovementCard(
+        //     title: "Conad",
+        //     category: "Grocery",
+        //     price: 34.39,
+        //     image: "test",
+        //   ),
+        //   SingleMovementCard(
+        //     title: "Conad",
+        //     category: "Grocery",
+        //     price: 34.39,
+        //     image: "test",
+        //   ),
+        //   SingleMovementCard(
+        //     title: "Conad",
+        //     category: "Grocery",
+        //     price: 34.39,
+        //     image: "test",
+        //   ),
+        // ],
+        children: widget.movements.map((movement) {
+          return SingleMovementCard(
+              title: movement.title,
+              category: movement.category,
+              price: movement.price,
+              image: movement.image);
+        }).toList(),
       )
     ]);
   }
