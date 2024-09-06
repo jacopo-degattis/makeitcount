@@ -3,7 +3,14 @@ import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/objectbox.g.dart';
 
 abstract class MovementsRepositoryDefinition {
-  void addMovement(String name, String category, double price);
+  void addMovement(
+    String name,
+    String category,
+    double price,
+    String image,
+    int month,
+    int type,
+  );
   List<MovementModel> getMovementsByMonth(int month, {int? limit});
   // TODO: maybe add "add, remove, edit" movement/s
 }
@@ -16,10 +23,17 @@ class MovementsRepository extends MovementsRepositoryDefinition {
   );
 
   @override
-  void addMovement(String name, String category, double price) {
+  void addMovement(
+    String name,
+    String category,
+    double price,
+    String image,
+    int month,
+    int type,
+  ) {
     print("Inserting new movement");
     final box = _objectBoxDatabase.store.box<MovementModel>();
-    box.put(MovementModel(0, name, 45.99, category, "IMG", 9, 1));
+    box.put(MovementModel(0, name, price, category, image, month, type));
     print("Done inserting movement");
   }
 

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/state/models/movement.model.dart';
@@ -19,7 +21,7 @@ class _HomePageState extends ConsumerState<HomePage>
   void initState() {
     super.initState();
     _tabController = TabController(
-      initialIndex: 0,
+      initialIndex: DateTime.now().month - 1,
       length: 12,
       vsync: this,
     );
@@ -30,7 +32,8 @@ class _HomePageState extends ConsumerState<HomePage>
     final movementsRepo = ref.watch(movementsRepositoryProvider);
     // I show only the three / four last movements
     // To see all others you need to use the See all page
-    final movementsPreview = movementsRepo.getMovementsByMonth(9, limit: 3);
+    final movementsPreview =
+        movementsRepo.getMovementsByMonth(DateTime.now().month, limit: 3);
 
     final highlightColor = Theme.of(context).colorScheme.primaryContainer;
     final months = [
@@ -142,23 +145,40 @@ class _HomePageState extends ConsumerState<HomePage>
           child: TabBarView(
               controller: _tabController,
               children: List.filled(12, 0)
+                  .asMap()
+                  .entries
                   .map((x) => ExpensesPreview(
-                        movements: movementsPreview,
+                        month: x.key + 1,
                       ))
                   .toList() as List<Widget>),
         ),
       ),
+      // TODO: keep it centered or on the right
+      // Also if in center, should it have a label or only thep plus sign ?
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            movementsPreview
-                .add(MovementModel(0, "NEW", 33.33, "TEST", "NONE", 9, 1));
+            movementsPreview.add(MovementModel(
+                0,
+                "${DateTime.now().minute}:${DateTime.now().second}",
+                33.33,
+                "TEST",
+                "NONE",
+                _tabController.index + 1,
+                Random().nextInt(2)));
           });
           // TODO:
           // I think I should reverse options.
           // First I need to check if I correctly inserted the new entry in DB.
           // If it succeded then I can add it to local state.
-          movementsRepo.addMovement("NEW", "TEST", 33.33);
+          movementsRepo.addMovement(
+              "${DateTime.now().minute}:${DateTime.now().second}",
+              "TEST",
+              33.33,
+              "IMG",
+              _tabController.index + 1,
+              Random().nextInt(2));
         },
         child: const Icon(Icons.add),
       ),

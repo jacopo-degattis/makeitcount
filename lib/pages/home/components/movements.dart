@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:makeitcount/state/models/movement.model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/pages/home/components/single_movment_card.dart';
+import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
 
-class Movements extends StatefulWidget {
-  final List<MovementModel> movements;
+class Movements extends ConsumerStatefulWidget {
+  // final List<MovementModel> movements;
+  final int month;
 
-  const Movements({super.key, required this.movements});
+  const Movements({super.key, required this.month});
 
   @override
-  State<Movements> createState() => _MovementsState();
+  ConsumerState<Movements> createState() => _MovementsState();
 }
 
-class _MovementsState extends State<Movements> {
+class _MovementsState extends ConsumerState<Movements> {
   @override
   Widget build(BuildContext context) {
-    final margin = MediaQuery.of(context).size.height * 0.015;
+    final margin = MediaQuery.of(context).size.height * 0.010;
+
+    final movementsRepo = ref.watch(movementsRepositoryProvider);
+    // I show only the three / four last movements
+    // To see all others you need to use the See all page
+    final movementsPreview =
+        movementsRepo.getMovementsByMonth(widget.month, limit: 3);
 
     return Column(children: [
       Container(
@@ -39,32 +47,14 @@ class _MovementsState extends State<Movements> {
           )),
       Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        // children: [
-        //   SingleMovementCard(
-        //     title: "Conad",
-        //     category: "Grocery",
-        //     price: 34.39,
-        //     image: "test",
-        //   ),
-        //   SingleMovementCard(
-        //     title: "Conad",
-        //     category: "Grocery",
-        //     price: 34.39,
-        //     image: "test",
-        //   ),
-        //   SingleMovementCard(
-        //     title: "Conad",
-        //     category: "Grocery",
-        //     price: 34.39,
-        //     image: "test",
-        //   ),
-        // ],
-        children: widget.movements.map((movement) {
+        children: movementsPreview.map((movement) {
           return SingleMovementCard(
-              title: movement.title,
-              category: movement.category,
-              price: movement.price,
-              image: movement.image);
+            title: movement.title,
+            category: movement.category,
+            price: movement.price,
+            image: movement.image,
+            type: movement.type,
+          );
         }).toList(),
       )
     ]);

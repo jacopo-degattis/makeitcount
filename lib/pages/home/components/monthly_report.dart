@@ -11,8 +11,8 @@ class MonthlyReport extends StatefulWidget {
 class _MonthlyReportState extends State<MonthlyReport> {
   @override
   Widget build(BuildContext context) {
-    final graphsSapcing = MediaQuery.of(context).size.width * 0.05;
-    final cardHeight = MediaQuery.of(context).size.height * 0.20;
+    final graphsSapcing = MediaQuery.of(context).size.width * 0.01;
+    final cardHeight = MediaQuery.of(context).size.height * 0.23;
     final verticalCardPadding = MediaQuery.of(context).size.height * 0.02;
     final horizontalCardPadding = MediaQuery.of(context).size.width * 0.05;
 
