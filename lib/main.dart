@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:makeitcount/db.dart';
 import 'package:makeitcount/pages/home/home.dart';
+import 'package:makeitcount/state/providers/database/objectbox.provider.dart';
 import 'package:makeitcount/theme.dart';
 import 'package:makeitcount/util.dart';
 
-void main() {
-  runApp(const MyApp());
+late ObjectBoxDatabase objectBox;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  objectBox = await ObjectBoxDatabase.create();
+
+  runApp(ProviderScope(
+      overrides: [databaseProvider.overrideWithValue(objectBox)],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

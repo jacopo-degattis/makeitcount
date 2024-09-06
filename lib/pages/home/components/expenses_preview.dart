@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/pages/home/components/monthly_report.dart';
 import 'package:makeitcount/pages/home/components/movements.dart';
 
@@ -6,7 +7,9 @@ import 'package:makeitcount/pages/home/components/movements.dart';
 // This could simply aggregate both 'Monthly report'
 // and 'Movements' components
 class ExpensesPreview extends StatefulWidget {
-  const ExpensesPreview({super.key});
+  final List<MovementModel> movements;
+
+  const ExpensesPreview({super.key, required this.movements});
 
   @override
   State<ExpensesPreview> createState() => _ExpensesPreviewState();
@@ -15,9 +18,12 @@ class ExpensesPreview extends StatefulWidget {
 class _ExpensesPreviewState extends State<ExpensesPreview> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [MonthlyReport(), Movements()]);
+        children: [
+          const MonthlyReport(),
+          Movements(movements: widget.movements)
+        ]);
   }
 }

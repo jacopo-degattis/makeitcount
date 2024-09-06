@@ -1,0 +1,72 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "2:7656930703731196",
+      "lastPropertyId": "7:8777093216612398992",
+      "name": "MovementModel",
+      "properties": [
+        {
+          "id": "1:731353403043962057",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5552359023503114329",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "3:8666160016591586519",
+          "name": "category",
+          "type": 9
+        },
+        {
+          "id": "4:322784265091876348",
+          "name": "price",
+          "type": 8
+        },
+        {
+          "id": "5:8526203928865511708",
+          "name": "image",
+          "type": 9
+        },
+        {
+          "id": "6:256798981254180608",
+          "name": "month",
+          "type": 6
+        },
+        {
+          "id": "7:8777093216612398992",
+          "name": "type",
+          "type": 6
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:7656930703731196",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    378810589298808108
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    168271777215888504,
+    7358120642630997158,
+    9072664659983844564,
+    1914719460084255166,
+    575020497912633193,
+    3520191793809871621,
+    5527366738124074881
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
