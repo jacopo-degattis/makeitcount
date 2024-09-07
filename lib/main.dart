@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/db.dart';
-import 'package:makeitcount/pages/home/home.dart';
+import 'package:makeitcount/screens/home/home.dart';
 import 'package:makeitcount/state/providers/database/objectbox.provider.dart';
 import 'package:makeitcount/theme.dart';
 import 'package:makeitcount/util.dart';
