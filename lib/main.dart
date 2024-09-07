@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/db.dart';
 import 'package:makeitcount/screens/home/home.dart';
+import 'package:makeitcount/screens/see-all/see-all.dart';
 import 'package:makeitcount/state/providers/database/objectbox.provider.dart';
 import 'package:makeitcount/theme.dart';
 import 'package:makeitcount/util.dart';
@@ -29,8 +30,12 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      home: const HomePage(),
+      // home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => const HomePage(),
+        '/see-all': (context) => const SeeAll()
+      },
     );
   }
 }

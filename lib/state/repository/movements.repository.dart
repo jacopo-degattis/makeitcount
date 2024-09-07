@@ -68,19 +68,19 @@ class MovementsRepository extends MovementsRepositoryDefinition {
     Map<String, dynamic> percentages = {
       "incomes": {
         "percentage": !incomesPercentage.isNaN ? incomesPercentage : 0,
-        "amount": incomesMovements
+        "amount": num.parse((incomesMovements
             .map((x) => x.price)
-            .fold(0.0, (prev, price) => prev + price),
+            .fold(0.0, (prev, price) => prev + price)).toStringAsFixed(1)),
       },
       "outcomes": {
         "percentage": !outcomesPercentage.isNaN ? outcomesPercentage : 0,
-        "amount": outcomesMovements
+        "amount": num.parse((outcomesMovements
             .map((x) => x.price)
-            .fold(0.0, (prev, price) => prev + price)
+            .fold(0.0, (prev, price) => prev + price)).toStringAsFixed(1))
       },
-      "total": totalMovements
+      "total": num.parse((totalMovements
           .map((x) => x.price)
-          .fold(0.0, (prev, price) => prev + price)
+          .fold(0.0, (prev, price) => prev + price)).toStringAsFixed(1))
     };
 
     return percentages;
