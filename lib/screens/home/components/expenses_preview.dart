@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:makeitcount/pages/home/components/monthly_report.dart';
-import 'package:makeitcount/pages/home/components/movements.dart';
+import 'package:makeitcount/screens/home/components/monthly_report.dart';
+import 'package:makeitcount/screens/home/components/movements.dart';
 import 'package:makeitcount/util.dart';
 
 // TODO: probably improve this name
@@ -43,7 +43,7 @@ class _ExpensesPreviewState extends State<ExpensesPreview> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                const MonthlyReport(),
+                MonthlyReport(month: widget.month),
                 Movements(
                   month: widget.month,
                 )

@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:makeitcount/pages/home/components/expenses_pie_chart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:makeitcount/screens/home/components/expenses_pie_chart.dart';
+import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
 
-class MonthlyReport extends StatefulWidget {
-  const MonthlyReport({super.key});
+class MonthlyReport extends ConsumerStatefulWidget {
+  final int month;
+
+  const MonthlyReport({super.key, required this.month});
 
   @override
-  State<MonthlyReport> createState() => _MonthlyReportState();
+  ConsumerState<MonthlyReport> createState() => _MonthlyReportState();
 }
 
-class _MonthlyReportState extends State<MonthlyReport> {
+class _MonthlyReportState extends ConsumerState<MonthlyReport> {
   @override
   Widget build(BuildContext context) {
+    final movementsRepo = ref.watch(movementsRepositoryProvider);
+    final graphPercentages =
+        movementsRepo.getMovementsPercentages(widget.month);
+
     final graphsSapcing = MediaQuery.of(context).size.width * 0.01;
     final cardHeight = MediaQuery.of(context).size.height * 0.23;
     final verticalCardPadding = MediaQuery.of(context).size.height * 0.02;
@@ -43,33 +51,40 @@ class _MonthlyReportState extends State<MonthlyReport> {
                     Row(
                       children: [
                         Container(
-                          child: const ExpensesPieChart(
+                          child: ExpensesPieChart(
                               header: "Incomes",
                               progressColor: Color(0xFF1572A1),
-                              percent: 0.74,
-                              footer: "4,586.89"),
+                              percent: graphPercentages["incomes"]
+                                          ["percentage"]!
+                                      .toDouble() /
+                                  100,
+                              footer: graphPercentages["incomes"]["amount"]
+                                  .toString()),
                         ),
                         SizedBox(
                             // width: 20.0,
                             width: graphsSapcing),
                         Container(
-                          child: const ExpensesPieChart(
+                          child: ExpensesPieChart(
                             header: "Expenses",
                             progressColor: Color(0xFFC84361),
-                            percent: 0.26,
-                            footer: "300.99",
+                            percent: graphPercentages["outcomes"]["percentage"]!
+                                    .toDouble() /
+                                100,
+                            footer: graphPercentages["outcomes"]["amount"]
+                                .toString(),
                           ),
                         ),
                       ],
                     ),
-                    const Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Total",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text("\$ 4,285.90")
+                        Text("\$ ${graphPercentages['total']}")
                       ],
                     )
                   ],

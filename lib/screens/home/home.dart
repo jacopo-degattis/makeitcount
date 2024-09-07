@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/state/models/movement.model.dart';
-import 'package:makeitcount/pages/home/components/expenses_preview.dart';
+import 'package:makeitcount/screens/home/components/expenses_preview.dart';
 import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {

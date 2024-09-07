@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:makeitcount/pages/home/components/single_movment_card.dart';
+import 'package:makeitcount/screens/home/components/single_movment_card.dart';
 import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
 
 class Movements extends ConsumerStatefulWidget {
