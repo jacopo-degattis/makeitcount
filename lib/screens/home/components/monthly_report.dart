@@ -15,11 +15,13 @@ class MonthlyReport extends ConsumerStatefulWidget {
 class _MonthlyReportState extends ConsumerState<MonthlyReport> {
   @override
   Widget build(BuildContext context) {
+    final margin = MediaQuery.of(context).size.height * 0.010;
+
     final movementsRepo = ref.watch(movementsRepositoryProvider);
     final graphPercentages =
         movementsRepo.getMovementsPercentages(widget.month);
 
-    final graphsSapcing = MediaQuery.of(context).size.width * 0.01;
+    final graphsSapcing = MediaQuery.of(context).size.width * 0.05;
     final cardHeight = MediaQuery.of(context).size.height * 0.23;
     final verticalCardPadding = MediaQuery.of(context).size.height * 0.02;
     final horizontalCardPadding = MediaQuery.of(context).size.width * 0.05;
@@ -29,7 +31,8 @@ class _MonthlyReportState extends ConsumerState<MonthlyReport> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 15, bottom: 10),
+          margin: EdgeInsets.only(
+              top: margin, bottom: margin, left: 5.0, right: 5.0),
           child: const Text("Monthly report",
               style: TextStyle(
                 fontSize: 24,
@@ -50,30 +53,25 @@ class _MonthlyReportState extends ConsumerState<MonthlyReport> {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          child: ExpensesPieChart(
-                              header: "Incomes",
-                              progressColor: Color(0xFF1572A1),
-                              percent: graphPercentages["incomes"]
-                                          ["percentage"]!
-                                      .toDouble() /
-                                  100,
-                              footer: graphPercentages["incomes"]["amount"]
-                                  .toString()),
-                        ),
+                        ExpensesPieChart(
+                            header: "Incomes",
+                            progressColor: const Color(0xFF1572A1),
+                            percent: graphPercentages["incomes"]["percentage"]!
+                                    .toDouble() /
+                                100,
+                            footer: graphPercentages["incomes"]["amount"]
+                                .toString()),
                         SizedBox(
                             // width: 20.0,
                             width: graphsSapcing),
-                        Container(
-                          child: ExpensesPieChart(
-                            header: "Expenses",
-                            progressColor: Color(0xFFC84361),
-                            percent: graphPercentages["outcomes"]["percentage"]!
-                                    .toDouble() /
-                                100,
-                            footer: graphPercentages["outcomes"]["amount"]
-                                .toString(),
-                          ),
+                        ExpensesPieChart(
+                          header: "Expenses",
+                          progressColor: const Color(0xFFC84361),
+                          percent: graphPercentages["outcomes"]["percentage"]!
+                                  .toDouble() /
+                              100,
+                          footer:
+                              graphPercentages["outcomes"]["amount"].toString(),
                         ),
                       ],
                     ),
@@ -81,10 +79,18 @@ class _MonthlyReportState extends ConsumerState<MonthlyReport> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Total",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          "Total (\$)",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20.0),
                         ),
-                        Text("\$ ${graphPercentages['total']}")
+                        Text(
+                          "${graphPercentages['total']}",
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: graphPercentages['total'] < 0
+                                  ? const Color(0xFFC84361)
+                                  : const Color(0xFF1572A1)),
+                        )
                       ],
                     )
                   ],

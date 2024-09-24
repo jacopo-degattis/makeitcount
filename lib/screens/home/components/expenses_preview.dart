@@ -38,16 +38,19 @@ class _ExpensesPreviewState extends State<ExpensesPreview> {
 
   @override
   Widget build(BuildContext context) {
+    final marginSpacing = MediaQuery.of(context).size.width * 0.05;
+
     return !isDebouncing
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-                MonthlyReport(month: widget.month),
-                Movements(
-                  month: widget.month,
-                )
-              ])
+        ? Container(
+            margin: EdgeInsets.only(left: marginSpacing, right: marginSpacing),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MonthlyReport(month: widget.month),
+                  Movements(month: widget.month)
+                ]),
+          )
         : const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

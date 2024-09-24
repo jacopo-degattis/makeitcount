@@ -22,7 +22,7 @@ final _entities = <ModelEntity>[
   ModelEntity(
       id: const IdUid(2, 7656930703731196),
       name: 'MovementModel',
-      lastPropertyId: const IdUid(7, 8777093216612398992),
+      lastPropertyId: const IdUid(9, 5644444428473456829),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
@@ -46,19 +46,19 @@ final _entities = <ModelEntity>[
             type: 8,
             flags: 0),
         ModelProperty(
-            id: const IdUid(5, 8526203928865511708),
-            name: 'image',
-            type: 9,
-            flags: 0),
-        ModelProperty(
             id: const IdUid(6, 256798981254180608),
             name: 'month',
             type: 6,
             flags: 0),
         ModelProperty(
-            id: const IdUid(7, 8777093216612398992),
-            name: 'type',
+            id: const IdUid(8, 6838829803120162248),
+            name: 'imageCodePoint',
             type: 6,
+            flags: 0),
+        ModelProperty(
+            id: const IdUid(9, 5644444428473456829),
+            name: 'income',
+            type: 1,
             flags: 0)
       ],
       relations: <ModelRelation>[],
@@ -98,7 +98,9 @@ ModelDefinition getObjectBoxModel() {
         1914719460084255166,
         575020497912633193,
         3520191793809871621,
-        5527366738124074881
+        5527366738124074881,
+        8526203928865511708,
+        8777093216612398992
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -117,15 +119,14 @@ ModelDefinition getObjectBoxModel() {
         objectToFB: (MovementModel object, fb.Builder fbb) {
           final titleOffset = fbb.writeString(object.title);
           final categoryOffset = fbb.writeString(object.category);
-          final imageOffset = fbb.writeString(object.image);
-          fbb.startTable(8);
+          fbb.startTable(10);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, titleOffset);
           fbb.addOffset(2, categoryOffset);
           fbb.addFloat64(3, object.price);
-          fbb.addOffset(4, imageOffset);
           fbb.addInt64(5, object.month);
-          fbb.addInt64(6, object.type);
+          fbb.addInt64(7, object.imageCodePoint);
+          fbb.addBool(8, object.income);
           fbb.finish(fbb.endTable());
           return object.id;
         },
@@ -140,10 +141,9 @@ ModelDefinition getObjectBoxModel() {
               const fb.Float64Reader().vTableGet(buffer, rootOffset, 10, 0),
               const fb.StringReader(asciiOptimization: true)
                   .vTableGet(buffer, rootOffset, 8, ''),
-              const fb.StringReader(asciiOptimization: true)
-                  .vTableGet(buffer, rootOffset, 12, ''),
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0),
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0),
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0));
+              const fb.BoolReader().vTableGet(buffer, rootOffset, 20, false));
 
           return object;
         })
@@ -170,15 +170,15 @@ class MovementModel_ {
   static final price =
       QueryDoubleProperty<MovementModel>(_entities[0].properties[3]);
 
-  /// see [MovementModel.image]
-  static final image =
-      QueryStringProperty<MovementModel>(_entities[0].properties[4]);
-
   /// see [MovementModel.month]
   static final month =
+      QueryIntegerProperty<MovementModel>(_entities[0].properties[4]);
+
+  /// see [MovementModel.imageCodePoint]
+  static final imageCodePoint =
       QueryIntegerProperty<MovementModel>(_entities[0].properties[5]);
 
-  /// see [MovementModel.type]
-  static final type =
-      QueryIntegerProperty<MovementModel>(_entities[0].properties[6]);
+  /// see [MovementModel.income]
+  static final income =
+      QueryBooleanProperty<MovementModel>(_entities[0].properties[6]);
 }

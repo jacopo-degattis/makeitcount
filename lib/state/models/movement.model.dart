@@ -8,10 +8,10 @@ class MovementModel {
   String title;
   String category;
   double price;
-  String image;
+  int imageCodePoint;
   int month;
-  int type; // TODO: improve this to an enum or any other way
+  bool income; // If true is income otherwise outcome
 
-  MovementModel(this.id, this.title, this.price, this.category, this.image,
-      this.month, this.type);
+  MovementModel(this.id, this.title, this.price, this.category,
+      this.imageCodePoint, this.month, this.income);
 }
