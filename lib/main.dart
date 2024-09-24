@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:makeitcount/db.dart';
 import 'package:makeitcount/screens/home/home.dart';
 import 'package:makeitcount/screens/see-all/see-all.dart';
+import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/state/providers/database/objectbox.provider.dart';
 import 'package:makeitcount/theme.dart';
 import 'package:makeitcount/util.dart';
@@ -12,6 +13,8 @@ late ObjectBoxDatabase objectBox;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   objectBox = await ObjectBoxDatabase.create();
+
+  // objectBox.store.box<MovementModel>().removeAll();
 
   runApp(ProviderScope(
       overrides: [databaseProvider.overrideWithValue(objectBox)],

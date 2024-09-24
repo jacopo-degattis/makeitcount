@@ -4,16 +4,16 @@ class SingleMovementCard extends StatelessWidget {
   final String title;
   final String category;
   final double price; // TODO: it's price the best name ?
-  final String image;
-  final int type;
+  final int imageCodePoint;
+  final bool income;
 
   const SingleMovementCard({
     super.key,
     required this.title,
     required this.category,
     required this.price,
-    required this.image,
-    required this.type,
+    required this.imageCodePoint,
+    required this.income,
   });
 
   @override
@@ -26,8 +26,8 @@ class SingleMovementCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.local_grocery_store_outlined,
+              Icon(
+                IconData(imageCodePoint, fontFamily: 'MaterialIcons'),
                 size: 30.0,
               ),
               Container(
@@ -47,21 +47,24 @@ class SingleMovementCard extends StatelessWidget {
                 ),
               ),
               Container(
-                  margin: const EdgeInsets.only(left: 7.0),
-                  child: type == 0
-                      ? const Icon(
-                          Icons.arrow_outward,
-                          color: Color(0xFFC84361),
-                        )
-                      : const Icon(
-                          Icons.south_west,
-                          color: Color(0xFF1572A1),
-                        ))
+                margin: const EdgeInsets.only(left: 7.0),
+                child: income
+                    ? const Icon(
+                        Icons.south_west,
+                        color: Color(0xFF1572A1),
+                      )
+                    : const Icon(
+                        Icons.arrow_outward,
+                        color: Color(0xFFC84361),
+                      ),
+              )
             ],
           ),
           Text(
             "\$ $price",
-            style: const TextStyle(color: Color(0xFFC84361)),
+            style: TextStyle(
+                color:
+                    income ? const Color(0xFF1572A1) : const Color(0xFFC84361)),
           )
         ],
       ),

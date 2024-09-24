@@ -29,12 +29,13 @@ class _MovementsState extends ConsumerState<Movements> {
     return Expanded(
       child: Column(children: [
         Container(
-            margin: EdgeInsets.only(top: margin, bottom: margin),
+            margin: EdgeInsets.only(
+                top: margin, bottom: margin, left: 5.0, right: 5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  "Movements",
+                  "Last movements",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -49,7 +50,10 @@ class _MovementsState extends ConsumerState<Movements> {
                       Navigator.pushNamed(context, "/see-all",
                           arguments: SeeAllArguments(widget.month));
                     },
-                    child: const Text("See all"),
+                    child: const Text(
+                      "See all",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 )
               ],
@@ -58,12 +62,13 @@ class _MovementsState extends ConsumerState<Movements> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: movementsPreview.map((movement) {
+                  debugPrint("Got movement, ${movement.title}");
                   return SingleMovementCard(
                     title: movement.title,
                     category: movement.category,
                     price: movement.price,
-                    image: movement.image,
-                    type: movement.type,
+                    imageCodePoint: movement.imageCodePoint,
+                    income: movement.income,
                   );
                 }).toList(),
               )

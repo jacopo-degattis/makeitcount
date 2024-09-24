@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:makeitcount/screens/new-movement/new-movement.dart';
 import 'package:makeitcount/state/models/movement.model.dart';
 import 'package:makeitcount/screens/home/components/expenses_preview.dart';
 import 'package:makeitcount/state/providers/movements/movements_repository.provider.dart';
@@ -139,7 +140,7 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+        // padding: const EdgeInsets.only(left: 15.0, right: 15.0)
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: TabBarView(
@@ -158,30 +159,47 @@ class _HomePageState extends ConsumerState<HomePage>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            movementsPreview.add(MovementModel(
-                0,
-                "${DateTime.now().minute}:${DateTime.now().second}",
-                33.33,
-                "TEST",
-                "NONE",
-                _tabController.index + 1,
-                Random().nextInt(2)));
-          });
-          // TODO:
-          // I think I should reverse options.
-          // First I need to check if I correctly inserted the new entry in DB.
-          // If it succeded then I can add it to local state.
-          movementsRepo.addMovement(
-              "${DateTime.now().minute}:${DateTime.now().second}",
-              "TEST",
-              33.33,
-              "IMG",
-              _tabController.index + 1,
-              Random().nextInt(2));
+          showFullScreenDialog(
+            context,
+            _tabController,
+            movementsPreview,
+          );
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+}
+
+void showFullScreenDialog(
+  BuildContext context,
+  TabController tabController,
+  List<MovementModel> movementsPreview,
+) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: true, // Allow closing by tapping outside
+    barrierLabel: "Dismiss",
+    barrierColor: Colors.black54, // Background color
+    transitionDuration: Duration(milliseconds: 300), // Animation duration
+    pageBuilder: (BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation) {
+      return NewMovement(
+          selectedMonth: tabController.index + 1,
+          movementsPreview: movementsPreview);
+    },
+    transitionBuilder: (BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation, Widget child) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0, 1), // Start from bottom
+          end: Offset.zero, // End at the center
+        ).animate(CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeInOut, // Easing curve
+        )),
+        child: child,
+      );
+    },
+  );
 }

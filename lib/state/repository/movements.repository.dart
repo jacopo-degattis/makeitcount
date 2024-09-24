@@ -7,9 +7,9 @@ abstract class MovementsRepositoryDefinition {
     String name,
     String category,
     double price,
-    String image,
+    int imageCodePoint,
     int month,
-    int type,
+    bool income,
   );
   List<MovementModel> getMovementsByMonth(int month, {int? limit});
   Map<String, dynamic> getMovementsPercentages(int month);
@@ -28,12 +28,13 @@ class MovementsRepository extends MovementsRepositoryDefinition {
     String name,
     String category,
     double price,
-    String image,
+    int imageCodePoint,
     int month,
-    int type,
+    bool income,
   ) {
     final box = _objectBoxDatabase.store.box<MovementModel>();
-    box.put(MovementModel(0, name, price, category, image, month, type));
+    box.put(
+        MovementModel(0, name, price, category, imageCodePoint, month, income));
   }
 
   @override
@@ -54,8 +55,8 @@ class MovementsRepository extends MovementsRepositoryDefinition {
   @override
   Map<String, dynamic> getMovementsPercentages(int month) {
     final totalMovements = getMovementsByMonth(month);
-    final incomesMovements = totalMovements.where((x) => x.type == 1);
-    final outcomesMovements = totalMovements.where((x) => x.type == 0);
+    final incomesMovements = totalMovements.where((x) => x.income);
+    final outcomesMovements = totalMovements.where((x) => !x.income);
 
     num incomesPercentage = num.parse(
         (incomesMovements.length * 100 / totalMovements.length)
@@ -79,8 +80,14 @@ class MovementsRepository extends MovementsRepositoryDefinition {
             .fold(0.0, (prev, price) => prev + price)).toStringAsFixed(1))
       },
       "total": num.parse((totalMovements
-          .map((x) => x.price)
-          .fold(0.0, (prev, price) => prev + price)).toStringAsFixed(1))
+          .map((x) => {"price": x.price, "income": x.income})
+          .fold(0.0, (prev, price) {
+        if (price["income"] as bool) {
+          return prev + (price["price"] as num);
+        } else {
+          return prev - (price["price"] as num);
+        }
+      })).toStringAsFixed(1))
     };
 
     return percentages;

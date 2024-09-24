@@ -44,8 +44,8 @@ class _SeeAllState extends ConsumerState<SeeAll> {
                   title: movement.title,
                   category: movement.category,
                   price: movement.price,
-                  image: movement.image,
-                  type: movement.type,
+                  imageCodePoint: movement.imageCodePoint,
+                  income: movement.income,
                 );
               }).toList(),
             ),

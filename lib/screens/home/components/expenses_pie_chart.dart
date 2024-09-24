@@ -17,7 +17,7 @@ class ExpensesPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = MediaQuery.of(context).size.width * 0.15;
+    final radius = MediaQuery.of(context).size.width * 0.12;
     final spacing = MediaQuery.of(context).size.height * 0.02;
 
     return CircularPercentIndicator(
