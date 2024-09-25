@@ -25,6 +25,10 @@ class _NewMovementState extends ConsumerState<NewMovement> {
   String? formError;
   String movementType = "Income";
 
+  final movementTitle = TextEditingController();
+  final movementCategory = TextEditingController();
+  final movementPrice = TextEditingController();
+
   _pickIcon() async {
     IconPickerIcon? icon = await showIconPicker(
       context,
@@ -43,10 +47,6 @@ class _NewMovementState extends ConsumerState<NewMovement> {
   Widget build(BuildContext context) {
     final movementsRepo = ref.watch(movementsRepositoryProvider);
 
-    final movementTitle = TextEditingController();
-    final movementCategory = TextEditingController();
-    final movementPrice = TextEditingController();
-
     bool _validateForm() {
       if (movementTitle.text.isEmpty ||
           movementCategory.text.isEmpty ||
@@ -62,6 +62,7 @@ class _NewMovementState extends ConsumerState<NewMovement> {
     return Dialog.fullscreen(
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
             leading: IconButton(
               icon: const Icon(Icons.close), // Cross icon to close
